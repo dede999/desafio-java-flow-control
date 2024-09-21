@@ -3,12 +3,32 @@
  */
 package dio.java.flow.control;
 
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public String printNumString(int bigger, int lesser) throws LesserGraterThanBiggerException {
+        if (bigger < lesser) {
+            throw new LesserGraterThanBiggerException(bigger, lesser);
+        }
+
+        int result = bigger - lesser;
+        StringBuilder resultString = new StringBuilder();
+        for (int i = 0; i < result; i++) {
+            resultString.append("Imprimindo o número " + (i + 1) + "\n");
+        }
+        return resultString.toString();
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Digite os números menor e o maior:");
+        int lesser = scanner.nextInt();
+        int bigger = scanner.nextInt();
+        try {
+            System.out.println(new App().printNumString(bigger, lesser));
+        } catch (LesserGraterThanBiggerException e) {
+            System.out.println(e.getMessage());
+        }
+        scanner.close();
     }
 }

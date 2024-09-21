@@ -9,6 +9,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+        String[] lines = {
+            "Imprimindo o número 1",
+            "Imprimindo o número 2",
+            "Imprimindo o número 3",
+            ""
+        };
+        try {
+            assertEquals(String.join("\n", lines), classUnderTest.printNumString(4, 1));
+        } catch (LesserGraterThanBiggerException e) {
+            fail("Unexpected exception");
+        }
+    }
+
+    @Test void appThrowsException() {
+        App classUnderTest = new App();
+        try {
+            classUnderTest.printNumString(1, 4);
+            fail("Expected exception");
+        } catch (LesserGraterThanBiggerException e) {
+            assertEquals(
+                "The bigger number 1 is lesser than the smaller number 4",
+                e.getMessage());
+        }
     }
 }
